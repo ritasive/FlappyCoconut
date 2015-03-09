@@ -1,0 +1,13 @@
+{
+	"name" : "flappy",
+	"description" : "Flappy Coconut",
+	"authors" : [
+		"Robin Klüh",
+		"Thomas Herzog",
+		"Marvin Kienitz",
+		"Nikodemus van de Zand"
+	],
+	"dependencies" : {
+		"dgame": "~>0.4.3"
+	}
+}

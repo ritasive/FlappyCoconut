@@ -1,0 +1,27 @@
+dee.coloring.basictypes=0,127,124
+dee.coloring.basictypes_bold=true
+dee.coloring.character=79,118,211
+dee.coloring.default=255,255,255
+dee.coloring.delimstring=79,118,211
+dee.coloring.keyword=0,127,124
+dee.coloring.literals=0,127,124
+dee.coloring.literals_bold=true
+dee.coloring.string=79,118,211
+eclipse.preferences.version=1
+editor.coloring.basictypes=6,126,139
+editor.coloring.basictypes_bold=true
+editor.coloring.character=88,104,195
+editor.coloring.default=177,177,177
+editor.coloring.delimstring=88,104,195
+editor.coloring.keyword=6,126,139
+editor.coloring.literals=6,126,139
+editor.coloring.literals_bold=true
+editor.coloring.string=88,104,195
+elementIcons.style=DDT
+formatter.indentation.size=8
+formatter.tabulation.size=8
+mmrnmhrm.Templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+sourceHoverBackgroundColor=0,0,0
+sourceHoverBackgroundColor.SystemDefault=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

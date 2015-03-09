@@ -1,0 +1,12 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"derelict-ogg": "1.0.1",
+		"derelict-util": "1.9.1",
+		"dgame": "0.4.3",
+		"derelict-sdl2": "1.9.3",
+		"derelict-al": "1.0.0",
+		"derelict-vorbis": "1.0.1",
+		"derelict-gl3": "1.0.12"
+	}
+}
