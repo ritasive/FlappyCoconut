@@ -4,11 +4,11 @@
 			"derelict-ogg": "1.0.1",
 			"derelict-util": "1.9.1",
 			"dgame": "0.4.3",
-			"derelict-sdl2": "1.9.3",
+			"derelict-sdl2": "1.9.4",
 			"derelict-al": "1.0.0",
 			"derelict-vorbis": "1.0.1",
 			"derelict-gl3": "1.0.12"
 		},
-		"lastUpgrade": "2015-03-06T21:57:10.8416487"
+		"lastUpgrade": "2015-03-09T14:02:58.5056646"
 	}
 }

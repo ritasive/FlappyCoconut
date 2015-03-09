@@ -24,12 +24,12 @@ int main(string[] args)
 		e.setPosition(4, i * 18);
 	}
 	
-	Image wall_bot_img = new Image("F:/Daten/Github/flappy/assets/textures/wallbot.png");
+	Image wall_bot_img = new Image("./assets/textures/wallbot.png");
 	Sprite[] wall_bot = new Sprite[8];
 	foreach (i, ref e; wall_bot) {
 		e = new Sprite(wall_bot_img);
 	}
-	Image wall_top_img = new Image("F:/Daten/Github/flappy/assets/textures/walltop.png");
+	Image wall_top_img = new Image("./assets/textures/walltop.png");
 	Sprite[] wall_top = new Sprite[8];
 	foreach (i, ref e; wall_top) {
 		e = new Sprite(wall_top_img);
@@ -38,17 +38,20 @@ int main(string[] args)
 		wall_top[i].setPosition(848 + 200 * i, uniform(-320,-80));
 		wall_bot[i].setPosition(848 + 200 * i, wall_top[i].getPosition().y + 480);	
 	}
-	Image bg_img = new Image("F:/Daten/Github/flappy/assets/textures/background.png");
+	Image bg_img = new Image("./assets/textures/background.png");
 	Sprite bg = new Sprite(bg_img);
 	bg.setPosition(0, 0);
-	Image bg2_img = new Image("F:/Daten/Github/flappy/assets/textures/background.png");
+	Image bg2_img = new Image("./assets/textures/background.png");
 	Sprite bg2 = new Sprite(bg2_img);
 	bg2.setPosition(bg.width(), 0);
-	Image p_img = new Image("F:/Daten/Github/flappy/assets/textures/coco_straight.png");
+	Image start_img = new Image("./assets/textures/start.png");
+	Sprite start = new Sprite(start_img);
+	start.setPosition(200, 100);
+	Image p_img = new Image("./assets/textures/coco_straight.png");
 	Sprite p = new Sprite(p_img);
-	Image p_up_img = new Image("F:/Daten/Github/flappy/assets/textures/coco_up.png");
+	Image p_up_img = new Image("./assets/textures/coco_up.png");
 	Sprite p_up = new Sprite(p_up_img);
-	Image p_down_img = new Image("F:/Daten/Github/flappy/assets/textures/coco_down.png");
+	Image p_down_img = new Image("./assets/textures/coco_down.png");
 	Sprite p_down = new Sprite(p_down_img);
 	
 	p.setPosition(100, 190);
@@ -73,7 +76,6 @@ int main(string[] args)
 	short x = 0;
 	short y = 0;
 	short w_x = 0;
-	//string jump = Space;
 	int jumpcount = 0;
 	
 	
@@ -112,85 +114,101 @@ int main(string[] args)
 	
 	int updateLatch = 250;
 	int noplanhowtocallit = 0;
+	bool starting = true;
 	
 	while (win.isOpen()) {
 		win.clear();
-		playing = true;
 		
-		while(playing) {
-				
-			if(bg.getPosition().x <= -1600) {
-				bg.setPosition(0,0);
-				bg2.setPosition(1600,0);
-			}
-			
-			bg.move(-1,0);
-			bg2.move(-1,0);
-			
-			if (jump_pressed) {
-				jumpcount = 120;
-				fall = true;
-				jump_pressed = false;
-			}
-			if (jumpcount > 0) {
-				p.move(0,-(jumpcount / 20));
-				p_up.move(0,-(jumpcount / 20));
-				p_down.move(0,-(jumpcount / 20));
-				}
-			else {
-				p.move(0, -(jumpcount / 8));
-				p_up.move(0,-(jumpcount / 8));
-				p_down.move(0,-(jumpcount / 8));
-			}
-			jumpcount -= 4;	 
-			
-			win.draw(bg);
-			win.draw(bg2);
-			  
-			for(int i = 0 ; i < 5 ; i++) {
-				if(wall_top[i].getPosition().x < -100) {
-					wall_top[i].setPosition(900, uniform(-300,-100));
-					wall_bot[i].setPosition(900, wall_top[i].getPosition().y + 480);
-				}
-				wall_top[i].move(-3,0);
-				win.draw(wall_top[i]);
-				wall_bot[i].move(-3,0);
-				win.draw(wall_bot[i]);			
-			}
+		win.draw(bg);
+		win.draw(start);
 	
-			if (jumpcount < -16)
-				win.draw(p_down);
-			else if (jumpcount >= -16 && jumpcount <= 16 )
-				win.draw(p);
-			else if (jumpcount > 16)
-				win.draw(p_up);	
+		if(jump_pressed) {
+			playing = true;
+			while(playing) {
 				
-			if (p.position.y + p_img.height*0.25 >= win.height + 10 || p.position.y < -6) {
-				playing = false;
-				break;
+				if(bg.getPosition().x <= -1600) {
+					bg.setPosition(0,0);
+					bg2.setPosition(1600,0);
 				}
 				
-			if (F3_pressed) {
-				//t.format("FPS Limit: %s, Current FPS: %s, Hz: %s", win.getFramerateLimit(), clock.getCurrentFps(), win.getVerticalSync());
-				t[0].format("FPS Limit: %s", win.getFramerateLimit() == 0 ? "NoLimit" : to!string(win.getFramerateLimit));
-				t[1].format("Current FPS: %s", clock.getCurrentFps());
-				t[2].format("Vsync: %s", win.getVerticalSync());
-				t[3].format("X: %s, Y: %s", x, y);
-				t[4].format("jump: %s", jumpcount);
-				t[5].format("BGpos: %s", bg.getPosition().x);
+				bg.move(-1,0);
+				bg2.move(-1,0);
 				
-				win.draw(t[0]);
-				win.draw(t[1]);
-				win.draw(t[2]);
-				win.draw(t[3]);
-				win.draw(t[4]);
-				win.draw(t[5]);
-			}
+				if (jump_pressed) {
+					jumpcount = 120;
+					fall = true;
+					jump_pressed = false;
+				}
+				if (jumpcount > 0) {
+					p.move(0,-(jumpcount / 20));
+					p_up.move(0,-(jumpcount / 20));
+					p_down.move(0,-(jumpcount / 20));
+					}
+				else {
+					p.move(0, -(jumpcount / 8));
+					p_up.move(0,-(jumpcount / 8));
+					p_down.move(0,-(jumpcount / 8));
+				}
+				jumpcount -= 4;	 
+				
+				win.draw(bg);
+				win.draw(bg2);
+				  
+				for(int i = 0 ; i < 5 ; i++) {
+					if(wall_top[i].getPosition().x < -100) {
+						wall_top[i].setPosition(900, uniform(-300,-100));
+						wall_bot[i].setPosition(900, wall_top[i].getPosition().y + 480);
+					}
+					wall_top[i].move(-3,0);
+					win.draw(wall_top[i]);
+					wall_bot[i].move(-3,0);
+					win.draw(wall_bot[i]);			
+				}
 		
-			win.display();
-			Events.poll();
+				if (jumpcount < -16)
+					win.draw(p_down);
+				else if (jumpcount >= -16 && jumpcount <= 16 )
+					win.draw(p);
+				else if (jumpcount > 16)
+					win.draw(p_up);	
+					
+				if (p.position.y + p_img.height*0.25 >= win.height + 10 || p.position.y < -6) {
+					playing = false;
+					
+					}
+					
+				if (F3_pressed) {
+					//t.format("FPS Limit: %s, Current FPS: %s, Hz: %s", win.getFramerateLimit(), clock.getCurrentFps(), win.getVerticalSync());
+					t[0].format("FPS Limit: %s", win.getFramerateLimit() == 0 ? "NoLimit" : to!string(win.getFramerateLimit));
+					t[1].format("Current FPS: %s", clock.getCurrentFps());
+					t[2].format("Vsync: %s", win.getVerticalSync());
+					t[3].format("X: %s, Y: %s", x, y);
+					t[4].format("jump: %s", jumpcount);
+					t[5].format("BGpos: %s", bg.getPosition().x);
+					
+					win.draw(t[0]);
+					win.draw(t[1]);
+					win.draw(t[2]);
+					win.draw(t[3]);
+					win.draw(t[4]);
+					win.draw(t[5]);
+				}
+			
+				win.display();
+				Events.poll();
+			}
+			bg.setPosition(0,0);
+			bg2.setPosition(bg.width(),0);
+			for(int i = 0 ; i < 5 ; i++) {
+				wall_top[i].setPosition(848 + 200 * i, uniform(-320,-80));
+				wall_bot[i].setPosition(848 + 200 * i, wall_top[i].getPosition().y + 480);	
+			}
+			p.setPosition(100, 190);
+			p_up.setPosition(100, 190);
+			p_down.setPosition(100, 190);
 		}
-
+		win.display();
+		Events.poll();
 	}
 	
 	return 0;
