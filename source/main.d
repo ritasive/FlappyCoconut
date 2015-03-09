@@ -20,7 +20,7 @@ int main(string[] args)
 	
 	Text[] t = new Text[10];
 	foreach (i, ref e; t) {
-		e = new Text(Font("C:/Windows/Fonts/Ubuntu-R.ttf", 16, Font.Mode.Blended));
+		e = new Text(Font("./assets/fonts/Ubuntu-R.ttf", 16, Font.Mode.Blended));
 		e.setPosition(4, i * 18);
 	}
 	
