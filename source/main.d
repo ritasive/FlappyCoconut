@@ -48,7 +48,7 @@ int main(string[] args)
 	Image start_img = new Image("./assets/textures/start.png");
 	Sprite start = new Sprite(start_img);
 	start.setPosition(200, 100);
-	Image end_img = new Image("./assets/textures/start.png");
+	Image end_img = new Image("./assets/textures/end.png");
 	Sprite end = new Sprite(end_img);
 	end.setPosition(200, 100);
 	Image p_img = new Image("./assets/textures/coco_straight.png");
@@ -122,20 +122,25 @@ int main(string[] args)
 	int noplanhowtocallit = 0;
 	bool starting = true;
 	bool ending = false;
-	GameState state = GameState.PLAYING;
+	GameState state = GameState.START_SCREEN;
 	
 	while (win.isOpen()) {
 		
 		final switch (state) {
 			case GameState.START_SCREEN:
+				debug writeln("startscreen");
 				win.clear();
 				win.draw(bg);
 				win.draw(start);
+				
 				if (jump_pressed) {
 					 state = GameState.PLAYING;
+					 //jump_pressed = false;
+					 debug writeln("leavingstartscreen");
 				}
 			break;
 			case GameState.PLAYING:
+				debug writeln("playing");
 				if(bg.getPosition().x <= -1600) {
 						bg.setPosition(0,0);
 						bg2.setPosition(1600,0);
@@ -183,7 +188,9 @@ int main(string[] args)
 						win.draw(p_up);	
 						
 					if (p.position.y + p_img.height*0.25 >= win.height + 10 || p.position.y < -6) {
-						state = GameState.END_SCREEN;		
+						state = GameState.END_SCREEN;
+						jump_pressed = false;
+						debug writeln("leaving playing");		
 						}
 						
 					if (F3_pressed) {
@@ -203,10 +210,9 @@ int main(string[] args)
 						win.draw(t[5]);
 					}
 				
-					win.display();
-					Events.poll();
 				break;
 				case GameState.END_SCREEN:
+					debug writeln("endscreen");
 					bg.setPosition(0,0);
 					bg2.setPosition(bg.width(),0);
 					for(int i = 0 ; i < 5 ; i++) {
@@ -216,13 +222,14 @@ int main(string[] args)
 					p.setPosition(100, 190);
 					p_up.setPosition(100, 190);
 					p_down.setPosition(100, 190);
-					win.draw(end);
+					
 					win.draw(bg);
+					win.draw(end);
 					if(jump_pressed) {
 						state = GameState.START_SCREEN;
+						jump_pressed = false;
+						debug writeln("leaving endscreen");
 					}
-					win.display();
-					Events.poll();
 				break;
 			}
 		win.display();
